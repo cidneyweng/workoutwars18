@@ -15,20 +15,20 @@ class SignUpForm(UserCreationForm):
         help_text='(or what you go by if you don&#39;t have one)'
         )
     email = forms.EmailField(max_length=254, required=True)
-    team = forms.ModelChoiceField(
-        queryset=Team.objects.all(),
-        required=False,
-        help_text='Check PQ Captains\' email for your assigned team'
-        )
+    # team = forms.ModelChoiceField(
+    #     queryset=Team.objects.all(),
+    #     required=False,
+    #     help_text='Check PQ Captains\' email for your assigned team'
+    #     )
     class_name = forms.ModelChoiceField(
         queryset=Class.objects.all(),
-        label='Class',
+        label='Pods',
         required=True
          )
 
     class Meta:
         model = User
-        fields = ('username', 'first_name', 'last_name', 'nick_name', 'email', 'class_name', 'team', 'password1', 'password2', )
+        fields = ('username', 'first_name', 'last_name', 'nick_name', 'email', 'class_name', 'password1', 'password2', )
 
 class AddWorkoutForm(forms.ModelForm):
     workout_date = forms.DateField(
@@ -40,7 +40,7 @@ class AddWorkoutForm(forms.ModelForm):
         help_text="When did you do the workout?"
         )
     exercise = forms.ModelChoiceField(
-        queryset=Exercise.objects.all().order_by('name'),
+        queryset=Exercise.objects.all().order_by('description'),
         required=True
         )
     duration = forms.DecimalField(
@@ -48,8 +48,8 @@ class AddWorkoutForm(forms.ModelForm):
         required=True,
         label="Duration (in mins)",
         help_text="unless pushups or burpees (quantity)")
-    with_other_class = forms.BooleanField(required=False)
+    # with_other_class = forms.BooleanField(required=False)
 
     class Meta:
         model = Workout
-        fields = ('workout_date', 'exercise', 'duration', 'with_other_class', )
+        fields = ('workout_date', 'exercise', 'duration')
